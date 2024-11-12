@@ -1,0 +1,9 @@
+.v-btn {
+    text-transform: none;
+    font-size: 16px;
+}
+
+/*fix to icon inside floating buttons not being vertically aligned, probably because of a vuetify update*/
+.v-btn--floating .v-icon {
+    height: auto;
+}
