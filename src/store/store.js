@@ -44,13 +44,12 @@ export default new Vuex.Store({
           password: authData.password,
         })
         .then(res => {
-          console.log(res.data)
           if (res.data.responseType === 'success') {
             console.log('SMS')
-            localStorage.setItem('token', res.data.data.jwt)
+            localStorage.setItem('token', res.data.jwt)
             commit('authUser', {
-              token: res.data.data.jwt,
-              role_id: res.data.data.role_id,
+              token: res.data.jwt,
+              role_id: res.data.role_id,
             })
             if (state.user.role_id === 'Admin') router.replace('/admin/users')
 
@@ -83,10 +82,10 @@ export default new Vuex.Store({
         .then(res => {
           commit('authUser', {
             token: token,
-            id: res.data.data.id,
-            name: res.data.data.name,
-            email: res.data.data.email,
-            role_id: res.data.data.role_id,
+            id: res.data.id,
+            name: res.data.name,
+            email: res.data.email,
+            role_id: res.data.role_id,
           })
         })
         .catch(error => console.log(error))

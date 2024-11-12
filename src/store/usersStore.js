@@ -34,7 +34,7 @@ const actions = {
       .then(res => {
         console.log(res)
         let users = []
-        let response = res.data.data
+        let response = res.data
         response.forEach(user => {
           const temp = {
             id: user.id,
