@@ -53,7 +53,7 @@ const actions = {
     return axios
       .post(process.env.VUE_APP_API_URL + '/admin/user', payload)
       .then(res => {
-        console.log(res)
+        //console.log(res)
         let response = res.data.data
         if (res.data.responseType === 'success') {
           const user = {
@@ -67,13 +67,14 @@ const actions = {
         return res.data
       })
       .catch(error => {
+        console.log('SMS')
         console.log(error)
       })
   },
 
   editUser({ commit }, payload) {
     return axios
-      .post(
+      .patch(
         process.env.VUE_APP_API_URL + '/admin/user/' + payload.id,
         payload.data
       )

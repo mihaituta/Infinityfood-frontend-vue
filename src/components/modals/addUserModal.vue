@@ -188,6 +188,11 @@
 
                 let userData = this.user;
                 this.$store.dispatch('addUser', userData).then((res) => {
+                    console.log(res);
+                    console.log(res.responseType);
+                    console.log(res.errorMessage);
+  
+
                     if (res.responseType === 'success') {
                         this.openModal = false;
                         this.userAddedNotification();

@@ -58,7 +58,9 @@ export default new Vuex.Store({
           }
           return res.data
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          console.log(error)
+        })
     },
 
     logout({ commit }) {
