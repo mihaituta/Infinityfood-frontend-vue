@@ -125,7 +125,6 @@ export default {
                 return
             }
 
-            //const formData = new FormData();
             const data = {}
             if (this.userList.name !== this.user.name) {
                 data.name = this.userList.name
