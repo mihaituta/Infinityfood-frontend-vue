@@ -44,12 +44,12 @@ export default new Vuex.Store({
           password: authData.password,
         })
         .then(res => {
+          let response = res.data.data
           if (res.data.responseType === 'success') {
-            console.log('SMS')
-            localStorage.setItem('token', res.data.jwt)
+            localStorage.setItem('token', response.jwt)
             commit('authUser', {
-              token: res.data.jwt,
-              role_id: res.data.role_id,
+              token: response.jwt,
+              role_id: response.role_id,
             })
             if (state.user.role_id === 'Admin') router.replace('/admin/users')
 
@@ -80,12 +80,13 @@ export default new Vuex.Store({
       axios
         .get(process.env.VUE_APP_API_URL + '/user')
         .then(res => {
+          let response = res.data.data
           commit('authUser', {
             token: token,
-            id: res.data.id,
-            name: res.data.name,
-            email: res.data.email,
-            role_id: res.data.role_id,
+            id: response.id,
+            name: response.name,
+            email: response.email,
+            role_id: response.role_id,
           })
         })
         .catch(error => console.log(error))

@@ -3,12 +3,12 @@
 </h1>
 
 # Infinity Food
-**InfinityFood** is the project I made for my thesis when I graduated from college.
+
+**InfinityFood** is a resturant management system.
 
 This is the **front-end** part of the project.
 <br>
-**API** github link can be found
-<a href="https://github.com/mihaituta/laravel-vue-api-food" rel="noreferrer" target="_blank">here.</a>
+<a href="https://github.com/mihaituta/laravel-vue-api-food" rel="noreferrer" target="_blank">API github link (Java Spring Boot)</a>
 
 <a href="https://infinityfood.netlify.app" rel="noreferrer" target="_blank">Live demo</a>
 
@@ -17,6 +17,7 @@ This is the **front-end** part of the project.
 **Staff** account (to manage a restaurant): **staff@gmail.com**, password: **123123**.
 
 # Technologies
+
 - **HTML**
 - **CSS**
 - **JavaScript**
@@ -27,6 +28,7 @@ This is the **front-end** part of the project.
 - The **Front-end** is hosted on **Netlify** and the **back-end API** is hosted on **Heroku** so the **first load** may take a few seconds
 
 # Functionalities
+
 **InfinityFood** is a website for presenting and managing restaurants.
 <br>
 **Users** can search for restaurants by name, filter restaurants by city, and order food.
@@ -34,25 +36,32 @@ This is the **front-end** part of the project.
 There are two types of users, **administrators** and **staff** members.
 
 **Administrators** can:
+
 - Add, modify or delete **restaurants**
 - Add, modify, or delete other **admin** or **staff** accounts
 
 **Staff members** can:
+
 - Manage the website of the **restaurant** they belong to, they can change everything related to the restaurant page, title, images, texts, phone numbers, emails
 - Add, modify, or delete the restaurant **menus**
 - See, change status(delivering/delivered) and delete the restaurant **orders** made by users
+
 # Installation
 
 Project setup:
+
 ```
 npm install
 ```
+
 Start local server:
+
 ```
 npm run serve
 ```
 
 # Images
+
 <img src="https://user-images.githubusercontent.com/41682806/133335788-819b36fd-5e9d-423d-bb2c-7a771f1b057c.jpg"/>
 
 <img src="https://user-images.githubusercontent.com/41682806/133335863-1cfeea41-9d65-43ac-97f2-7c6bffec48df.jpg"/>
@@ -62,4 +71,5 @@ npm run serve
 <img src="https://user-images.githubusercontent.com/41682806/133335893-4f3ac6bc-433d-4c93-bbcf-5632a3684945.jpg"/>
 
 ## Contact
+
 tutamihai@gmail.com
