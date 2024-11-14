@@ -1,25 +1,16 @@
 <template>
   <v-layout class="mt-2">
     <notification text="Restaurant was created successfully!" color="rgb(76, 175, 80, 0.9)"
-                  :showNotification="addNotification" :top=true :right=true></notification>
+      :showNotification="addNotification" :top=true :right=true></notification>
     <notification text="A restaurant with this name already exists!" color="rgb(255, 82, 82, 0.9)"
-                  :showNotification="nameNotification" :top=true></notification>
-    <v-btn
-        color="primary"
-        dark
-        @click.stop="openModal = true"
-    >
+      :showNotification="nameNotification" :top=true></notification>
+    <v-btn color="primary" dark @click.stop="openModal = true">
       <v-icon class="pr-2">library_add</v-icon>
       Add restaurant
 
     </v-btn>
 
-    <v-dialog
-        v-model="openModal"
-        max-width="35%"
-        scrollable
-        transition="slide-y-transition"
-    >
+    <v-dialog v-model="openModal" max-width="35%" scrollable transition="slide-y-transition">
       <v-card>
         <v-card-text class="pt-0 pb-0" style="height: 100%;">
           <v-card-title class="pa-0 mb-4">
@@ -39,154 +30,85 @@
             <v-container class="pl-3 pr-3 pb-1">
               <v-layout column>
                 <v-flex xs12>
-                  <v-text-field
-                      prepend-icon="create"
-                      v-model="restaurant.name"
-                      label="Restaurant name"
-                      :error-messages="nameErrors"
-                      @input="$v.restaurant.name.$touch()"
-                      @blur="$v.restaurant.name.$touch()"
-                  ></v-text-field>
+                  <v-text-field prepend-icon="create" v-model="restaurant.name" label="Restaurant name"
+                    :error-messages="nameErrors" @input="$v.restaurant.name.$touch()"
+                    @blur="$v.restaurant.name.$touch()"></v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-select
-                      prepend-icon="person"
-                      :items=users
-                      item-text="name"
-                      item-value="id"
-                      label="Restaurant administrator"
-                      v-model="restaurant.user_id"
-                      :error-messages="staffErrors"
-                      @change="$v.restaurant.user_id.$touch()"
-                      @blur="$v.restaurant.user_id.$touch()"
-                  >
+                  <v-select prepend-icon="person" :items=users item-text="name" item-value="id"
+                    label="Restaurant administrator" v-model="restaurant.user_id" :error-messages="staffErrors"
+                    @change="$v.restaurant.user_id.$touch()" @blur="$v.restaurant.user_id.$touch()">
                   </v-select>
                 </v-flex>
                 <v-flex xs12>
-                  <v-text-field
-                      prepend-icon="location_city"
-                      v-model="restaurant.city"
-                      label="City"
-                      :error-messages="cityErrors"
-                      @input="$v.restaurant.city.$touch()"
-                      @blur="$v.restaurant.city.$touch()"
-                  ></v-text-field>
+                  <v-text-field prepend-icon="location_city" v-model="restaurant.city" label="City"
+                    :error-messages="cityErrors" @input="$v.restaurant.city.$touch()"
+                    @blur="$v.restaurant.city.$touch()"></v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-textarea
-                      prepend-icon="description"
-                      v-model="restaurant.previewDescription"
-                      label="Preview description"
-                      rows="1"
-                      auto-grow
-                      :error-messages="previewDescriptionErrors"
-                      @input="$v.restaurant.previewDescription.$touch()"
-                      @blur="$v.restaurant.previewDescription.$touch()"
-                  ></v-textarea>
+                  <v-textarea prepend-icon="description" v-model="restaurant.previewDescription"
+                    label="Preview description" rows="1" auto-grow :error-messages="previewDescriptionErrors"
+                    @input="$v.restaurant.previewDescription.$touch()"
+                    @blur="$v.restaurant.previewDescription.$touch()"></v-textarea>
                 </v-flex>
 
                 <v-flex xs12>
-                  <v-textarea
-                      prepend-icon="description"
-                      v-model="restaurant.aboutText"
-                      label="Description"
-                      rows="1"
-                      auto-grow
-                      :error-messages="aboutTextErrors"
-                      @input="$v.restaurant.aboutText.$touch()"
-                      @blur="$v.restaurant.aboutText.$touch()"
-                  ></v-textarea>
+                  <v-textarea prepend-icon="description" v-model="restaurant.aboutText" label="Description" rows="1"
+                    auto-grow :error-messages="aboutTextErrors" @input="$v.restaurant.aboutText.$touch()"
+                    @blur="$v.restaurant.aboutText.$touch()"></v-textarea>
                 </v-flex>
 
                 <v-flex xs12>
-                  <v-textarea
-                      prepend-icon="description"
-                      v-model="restaurant.contactText"
-                      label="Contact description"
-                      rows="1"
-                      auto-grow
-                      :error-messages="contactTextErrors"
-                      @input="$v.restaurant.contactText.$touch()"
-                      @blur="$v.restaurant.contactText.$touch()"
-                  ></v-textarea>
+                  <v-textarea prepend-icon="description" v-model="restaurant.contactText" label="Contact description"
+                    rows="1" auto-grow :error-messages="contactTextErrors" @input="$v.restaurant.contactText.$touch()"
+                    @blur="$v.restaurant.contactText.$touch()"></v-textarea>
                 </v-flex>
                 <v-flex xs12>
-                  <v-text-field
-                      prepend-icon="phone"
-                      v-model="restaurant.phone1"
-                      :error-messages="phone1Errors"
-                      @input="$v.restaurant.phone1.$touch()"
-                      @blur="$v.restaurant.phone1.$touch()"
-                      label="Phone 1"
-                  ></v-text-field>
+                  <v-text-field prepend-icon="phone" v-model="restaurant.phone1" :error-messages="phone1Errors"
+                    @input="$v.restaurant.phone1.$touch()" @blur="$v.restaurant.phone1.$touch()"
+                    label="Phone 1"></v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-text-field
-                      prepend-icon="phone"
-                      v-model="restaurant.phone2"
-                      :error-messages="phone2Errors"
-                      @input="$v.restaurant.phone2.$touch()"
-                      @blur="$v.restaurant.phone2.$touch()"
-                      label="Phone 2"
-                  ></v-text-field>
+                  <v-text-field prepend-icon="phone" v-model="restaurant.phone2" :error-messages="phone2Errors"
+                    @input="$v.restaurant.phone2.$touch()" @blur="$v.restaurant.phone2.$touch()"
+                    label="Phone 2"></v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-text-field
-                      prepend-icon="mail"
-                      v-model="restaurant.mail1"
-                      label="E-mail 1"
-                      :error-messages="mailErrors1"
-                      @input="$v.restaurant.mail1.$touch()"
-                      @blur="$v.restaurant.mail1.$touch()"
-                  ></v-text-field>
+                  <v-text-field prepend-icon="mail" v-model="restaurant.mail1" label="E-mail 1"
+                    :error-messages="mailErrors1" @input="$v.restaurant.mail1.$touch()"
+                    @blur="$v.restaurant.mail1.$touch()"></v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-text-field
-                      prepend-icon="mail"
-                      v-model="restaurant.mail2"
-                      label="E-mail 2"
-                      :error-messages="mailErrors2"
-                      @input="$v.restaurant.mail2.$touch()"
-                      @blur="$v.restaurant.mail2.$touch()"
-                  ></v-text-field>
+                  <v-text-field prepend-icon="mail" v-model="restaurant.mail2" label="E-mail 2"
+                    :error-messages="mailErrors2" @input="$v.restaurant.mail2.$touch()"
+                    @blur="$v.restaurant.mail2.$touch()"></v-text-field>
                 </v-flex>
 
-                <v-flex xs12
-                        class="mt-3">
+                <v-flex xs12 class="mt-3">
                   <v-icon class="pr-2">photo</v-icon>
                   <span class="subheading mr-3">Preview Image</span>
                   <v-btn @click="pickPreviewImage" color="primary" class="ma-0">
                     <v-icon left dark>add_photo_alternate</v-icon>
                     Choose Image
                   </v-btn>
-                  <div v-if="previewImageTooBig" style="color:red;"
-                       class="subheading font-weight-light mt-3">
+                  <div v-if="previewImageTooBig" style="color:red;" class="subheading font-weight-light mt-3">
                     Image is too big, resolution must be 1920x1080 or smaller.
                   </div>
-                  <div v-else-if="previewImageError" style="color:red;"
-                       class="subheading font-weight-light mt-3">
+                  <div v-else-if="previewImageError" style="color:red;" class="subheading font-weight-light mt-3">
                     Image is required!
                   </div>
                 </v-flex>
-                <input
-                    type="file"
-                    style="display:none"
-                    ref="previewImage"
-                    accept="image/*"
-                    @change="onPreviewImageChanged"
-                >
-                <v-flex xs12
-                        class="text-xs-center text-sm-center text-md-center text-lg-center mt-2">
+                <input type="file" style="display:none" ref="previewImage" accept="image/*"
+                  @change="onPreviewImageChanged">
+                <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center mt-2">
                   <v-tooltip top max-width="600px" color="white">
                     <template v-slot:activator="{ on }">
-                      <img :src="previewImageURL" v-on="on" width="60%"
-                           v-if="previewImageURL"/>
-                      <img :src="path+restaurant.previewImage" v-on="on" width="60%"
-                           v-else-if="restaurant.previewImage"/>
+                      <img :src="previewImageURL" v-on="on" width="60%" v-if="previewImageURL" />
+                      <img :src="path + restaurant.previewImage" v-on="on" width="60%"
+                        v-else-if="restaurant.previewImage" />
                     </template>
-                    <img :src="previewImageURL" width="100%" v-if="previewImageURL"/>
-                    <img :src="path+restaurant.previewImage" width="100%"
-                         v-else-if="restaurant.previewImage"/>
+                    <img :src="previewImageURL" width="100%" v-if="previewImageURL" />
+                    <img :src="path + restaurant.previewImage" width="100%" v-else-if="restaurant.previewImage" />
                   </v-tooltip>
                 </v-flex>
                 <v-flex class="text-xs-center text-sm-center text-md-center text-lg-center">
@@ -195,85 +117,61 @@
                   </div>
                 </v-flex>
 
-                <v-flex xs12
-                        class="mt-1">
+                <v-flex xs12 class="mt-1">
                   <v-icon class="pr-2">photo</v-icon>
                   <span class="subheading mr-3">Background Image</span>
                   <v-btn @click="pickBgImage" color="primary" class="ma-0">
                     <v-icon left dark>add_photo_alternate</v-icon>
                     Choose Image
                   </v-btn>
-                  <div v-if="bgImageTooBig" style="color:red;"
-                       class="subheading font-weight-light mt-3">
+                  <div v-if="bgImageTooBig" style="color:red;" class="subheading font-weight-light mt-3">
                     Image is too big, resolution must be 1920x1080 or smaller.
                   </div>
-                  <div v-else-if="bgImageError" style="color:red;"
-                       class="subheading font-weight-light mt-3">
+                  <div v-else-if="bgImageError" style="color:red;" class="subheading font-weight-light mt-3">
                     Image is required!
                   </div>
                 </v-flex>
-                <input
-                    type="file"
-                    style="display:none"
-                    ref="bgImage"
-                    accept="image/*"
-                    @change="onBgImageChanged"
-                >
-                <v-flex xs12
-                        class="text-xs-center text-sm-center text-md-center text-lg-center mt-2">
+                <input type="file" style="display:none" ref="bgImage" accept="image/*" @change="onBgImageChanged">
+                <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center mt-2">
                   <v-tooltip top max-width="800px" color="white">
                     <template v-slot:activator="{ on }">
-                      <img :src="bgImageURL" v-on="on" width="90%" v-if="bgImageURL"/>
-                      <img :src="path+restaurant.backgroundImage" v-on="on" width="90%"
-                           v-else-if="restaurant.backgroundImage"/>
+                      <img :src="bgImageURL" v-on="on" width="90%" v-if="bgImageURL" />
+                      <img :src="path + restaurant.backgroundImage" v-on="on" width="90%"
+                        v-else-if="restaurant.backgroundImage" />
                     </template>
-                    <img :src="bgImageURL" width="100%" v-if="bgImageURL"/>
-                    <img :src="path+restaurant.backgroundImage" width="100%"
-                         v-else-if="restaurant.backgroundImage"/>
+                    <img :src="bgImageURL" width="100%" v-if="bgImageURL" />
+                    <img :src="path + restaurant.backgroundImage" width="100%" v-else-if="restaurant.backgroundImage" />
                   </v-tooltip>
                 </v-flex>
                 <v-flex class="text-xs-center text-sm-center text-md-center text-lg-center">
-                  <div v-if="bgImageName"
-                       class="subheading font-weight-light text-truncate">
+                  <div v-if="bgImageName" class="subheading font-weight-light text-truncate">
                     {{ bgImageName }}
                   </div>
                 </v-flex>
 
-                <v-flex xs12
-                        class="mt-1">
+                <v-flex xs12 class="mt-1">
                   <v-icon class="pr-2">photo</v-icon>
                   <span class="subheading mr-3">Restaurant logo</span>
                   <v-btn @click="pickLogoImage" color="primary" class="ma-0">
                     <v-icon left dark>add_photo_alternate</v-icon>
                     Choose Image
                   </v-btn>
-                  <div v-if="logoImageTooBig" style="color:red;"
-                       class="subheading font-weight-light mt-3">
+                  <div v-if="logoImageTooBig" style="color:red;" class="subheading font-weight-light mt-3">
                     Image is too big, resolution must be 1920x1080 or smaller.
                   </div>
-                  <div v-else-if="logoImageError" style="color:red;"
-                       class="subheading font-weight-light mt-3">
+                  <div v-else-if="logoImageError" style="color:red;" class="subheading font-weight-light mt-3">
                     Image is required!
                   </div>
                 </v-flex>
-                <input
-                    type="file"
-                    style="display:none"
-                    ref="logoImage"
-                    accept="image/*"
-                    @change="onLogoImageChanged"
-                >
-                <v-flex xs12
-                        class="text-xs-center text-sm-center text-md-center text-lg-center mt-2">
+                <input type="file" style="display:none" ref="logoImage" accept="image/*" @change="onLogoImageChanged">
+                <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center mt-2">
                   <v-tooltip top max-width="400px" color="white">
                     <template v-slot:activator="{ on }">
-                      <img :src="logoImageURL" v-on="on" width="40%" v-if="logoImageURL"/>
-                      <img :src="path+restaurant.logoImage" v-on="on" width="40%"
-                           v-else-if="restaurant.logoImage"/>
+                      <img :src="logoImageURL" v-on="on" width="40%" v-if="logoImageURL" />
+                      <img :src="path + restaurant.logoImage" v-on="on" width="40%" v-else-if="restaurant.logoImage" />
                     </template>
-                    <img :src="logoImageURL" width="100%" v-if="logoImageURL"/>
-                    <img :src="path+restaurant.logoImage" width="100%"
-                         v-else-if="restaurant.logoImage"/>
+                    <img :src="logoImageURL" width="100%" v-if="logoImageURL" />
+                    <img :src="path + restaurant.logoImage" width="100%" v-else-if="restaurant.logoImage" />
                   </v-tooltip>
                 </v-flex>
                 <v-flex class="text-xs-center text-sm-center text-md-center text-lg-center">
@@ -289,7 +187,7 @@
         <v-card-actions class="pb-2 pt-3">
           <v-spacer></v-spacer>
           <v-btn color="error" @click="openModal = false">Close</v-btn>
-          <v-btn color="primary" @click.prevent="onSubmit">Add</v-btn>
+          <v-btn color="primary" :disabled="loading" @click.prevent="onSubmit">Add</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -297,12 +195,13 @@
 </template>
 
 <script>
-import {required, integer} from 'vuelidate/lib/validators';
+import { required, integer } from 'vuelidate/lib/validators';
 import email from 'vuelidate/src/validators/email';
 
 export default {
   data() {
     return {
+      loading: false,
       openModal: false,
       path: process.env.VUE_APP_RESTAURANT_IMAGES,
       previewImageURL: '',
@@ -331,8 +230,8 @@ export default {
       },
 
       usersList: [
-        {id: 'null'},
-        {name: null}
+        { id: 'null' },
+        { name: null }
       ],
 
       addNotification: false,
@@ -346,16 +245,16 @@ export default {
 
   validations: {
     restaurant: {
-      name: {required},
-      user_id: {required},
-      city: {required},
-      previewDescription: {required},
-      aboutText: {required},
-      contactText: {required},
-      phone1: {required, integer},
-      phone2: {required, integer},
-      mail1: {required, email},
-      mail2: {required, email},
+      name: { required },
+      user_id: { required },
+      city: { required },
+      previewDescription: { required },
+      aboutText: { required },
+      contactText: { required },
+      phone1: { required, integer },
+      phone2: { required, integer },
+      mail1: { required, email },
+      mail2: { required, email },
     }
   },
   watch: {
@@ -556,6 +455,9 @@ export default {
     },
 
     onSubmit() {
+      // Check if the form is already submitting to prevent multiple clicks
+      if (this.loading) return;
+
       if (!this.restaurant.previewImage) {
         this.previewImageError = true;
       }
@@ -569,10 +471,14 @@ export default {
       this.$v.$touch();
       if (this.$v.$pending || this.$v.$error) return;
 
+      // Set loading to true when request begins
+      this.loading = true;
+
       const formData = new FormData();
       const restaurantData = this.restaurant;
 
       if (!this.restaurant.backgroundImage || !this.restaurant.previewImage) {
+        this.loading = false;
         return;
       }
 
@@ -597,8 +503,9 @@ export default {
         } else if (res.responseType === 'error' && res.errorMessage === 'nameTaken') {
           this.nameErrorNotification();
         }
+      }).finally(() => {
+        this.loading = false; // Reset loading after response
       });
-
     }
   },
 };

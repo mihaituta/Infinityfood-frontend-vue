@@ -159,7 +159,7 @@ const actions = {
     return axios
       .get(process.env.VUE_APP_API_URL + '/restaurant-complete/' + slug)
       .then(res => {
-        let response = res.data.data.store
+        let response = res.data.data.restaurant
         if (res.data.responseType === 'success') {
           const restaurant = {
             id: response.id,
