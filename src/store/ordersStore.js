@@ -78,7 +78,7 @@ const actions = {
       .then(res => {
         if (res.data.responseType === 'success') this.dispatch('getOrders')
         return res.data
-      })
+      }) 
       .catch(error => {
         console.log(error)
       })

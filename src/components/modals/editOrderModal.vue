@@ -108,7 +108,7 @@
                 if (this.status !== this.order.status)
                     formData.append('status', data.status);
 
-                formData.append('_method', 'patch');
+                //formData.append('_method', 'patch');
 
                 this.$store.dispatch('editOrder', {data: formData, id: data.id}).then((res) => {
                     if (res.responseType === 'success') {
