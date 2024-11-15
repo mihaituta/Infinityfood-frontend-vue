@@ -6,7 +6,7 @@ const state = {
       id: null,
       name: null,
       email: null,
-      role_id: null,
+      roleId: null,
     },
   ],
 }
@@ -40,7 +40,7 @@ const actions = {
             id: user.id,
             name: user.name,
             email: user.email,
-            role_id: user.role_id,
+            roleId: user.roleId,
           }
           users.push(temp)
         })
@@ -60,7 +60,7 @@ const actions = {
             id: response.id,
             name: response.name,
             email: response.email,
-            role_id: response.role_id,
+            roleId: response.roleId,
           }
           commit('addUser', user)
         }

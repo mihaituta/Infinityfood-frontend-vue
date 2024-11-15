@@ -36,8 +36,8 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-select prepend-icon="person" :items=users item-text="name" item-value="id"
-                    label="Restaurant administrator" v-model="restaurant.user_id" :error-messages="staffErrors"
-                    @change="$v.restaurant.user_id.$touch()" @blur="$v.restaurant.user_id.$touch()">
+                    label="Restaurant administrator" v-model="restaurant.userId" :error-messages="staffErrors"
+                    @change="$v.restaurant.userId.$touch()" @blur="$v.restaurant.userId.$touch()">
                   </v-select>
                 </v-flex>
                 <v-flex xs12>
@@ -215,7 +215,7 @@ export default {
       logoImageTooBig: false,
       restaurant: {
         name: '',
-        user_id: '',
+        userId: '',
         city: '',
         previewDescription: '',
         previewImage: '',
@@ -246,7 +246,7 @@ export default {
   validations: {
     restaurant: {
       name: { required },
-      user_id: { required },
+      userId: { required },
       city: { required },
       previewDescription: { required },
       aboutText: { required },
@@ -265,7 +265,7 @@ export default {
       this.$refs.logoImage.value = '';
 
       this.restaurant.name = '';
-      this.restaurant.user_id = '';
+      this.restaurant.userId = '';
       this.restaurant.city = '';
       this.restaurant.previewDescription = '';
       this.restaurant.previewImage = '';
@@ -307,8 +307,8 @@ export default {
     },
     staffErrors() {
       const errors = [];
-      if (!this.$v.restaurant.user_id.$dirty) return errors;
-      !this.$v.restaurant.user_id.required && errors.push('Administrator is required!');
+      if (!this.$v.restaurant.userId.$dirty) return errors;
+      !this.$v.restaurant.userId.required && errors.push('Administrator is required!');
       return errors;
     },
     cityErrors() {
@@ -484,7 +484,7 @@ export default {
 
       formData.append('name', restaurantData.name);
       formData.append('city', restaurantData.city);
-      formData.append('user_id', restaurantData.user_id);
+      formData.append('userId', restaurantData.userId);
       formData.append('previewDescription', restaurantData.previewDescription);
       formData.append('previewImage', restaurantData.previewImage);
       formData.append('backgroundImage', restaurantData.backgroundImage);

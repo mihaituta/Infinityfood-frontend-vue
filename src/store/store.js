@@ -16,7 +16,7 @@ export default new Vuex.Store({
       id: null,
       name: null,
       email: null,
-      role_id: null,
+      roleId: null,
     },
   },
   mutations: {
@@ -25,7 +25,7 @@ export default new Vuex.Store({
       state.user.id = userData.id
       state.user.name = userData.name
       state.user.email = userData.email
-      state.user.role_id = userData.role_id
+      state.user.roleId = userData.roleId
     },
 
     clearAuthData(state) {
@@ -33,7 +33,7 @@ export default new Vuex.Store({
       state.user.id = null
       state.user.name = null
       state.user.email = null
-      state.user.role_id = null
+      state.user.roleId = null
     },
   },
   actions: {
@@ -49,11 +49,11 @@ export default new Vuex.Store({
             localStorage.setItem('token', response.jwt)
             commit('authUser', {
               token: response.jwt,
-              role_id: response.role_id,
+              roleId: response.roleId,
             })
-            if (state.user.role_id === 'Admin') router.replace('/admin/users')
+            if (state.user.roleId === 'Admin') router.replace('/admin/users')
 
-            if (state.user.role_id === 'Staff')
+            if (state.user.roleId === 'Staff')
               router.replace('/staff/restaurant')
           }
           return res.data
@@ -88,7 +88,7 @@ export default new Vuex.Store({
             id: response.id,
             name: response.name,
             email: response.email,
-            role_id: response.role_id,
+            roleId: response.roleId,
           })
         })
         .catch(error => console.log(error))
@@ -98,8 +98,8 @@ export default new Vuex.Store({
     user(state) {
       return state.user
     },
-    role_id(state) {
-      return state.user.role_id
+    roleId(state) {
+      return state.user.roleId
     },
     isAuthenticated(state) {
       return state.token !== null

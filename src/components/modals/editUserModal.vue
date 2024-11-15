@@ -36,7 +36,7 @@
                                 </v-flex>
                                 <v-flex xs12>
                                     <v-select prepend-icon="security" :items="roles" label="Rol"
-                                        v-model="userList.role_id" :rules="role_idRules"></v-select>
+                                        v-model="userList.roleId" :rules="roleIdRules"></v-select>
                                 </v-flex>
                             </v-layout>
                         </v-container>
@@ -75,7 +75,7 @@ export default {
                     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
                     'E-mail must be valid!',
             ],
-            role_idRules: [v => !!v || 'Role is required!'],
+            roleIdRules: [v => !!v || 'Role is required!'],
         }
     },
     beforeMount() {
@@ -83,7 +83,7 @@ export default {
         this.userList.id = this.user.id
         this.userList.name = this.user.name
         this.userList.email = this.user.email
-        this.userList.role_id = this.user.role_id
+        this.userList.roleId = this.user.roleId
     },
     watch: {
         openModal() {
@@ -91,7 +91,7 @@ export default {
             this.user.name = ''
             this.user.email = ''
             this.user.password = ''
-            this.user.role_id = null
+            this.user.roleId = null
         },
     },
     validations: {
@@ -138,8 +138,8 @@ export default {
             ) {
                 data.password = this.userList.password
             }
-            if (this.userList.role_id !== this.user.role_id) {
-                data.role_id = this.userList.role_id
+            if (this.userList.roleId !== this.user.roleId) {
+                data.roleId = this.userList.roleId
             }
 
             // If there are no changes, close the modal and return

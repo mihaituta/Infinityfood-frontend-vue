@@ -7,7 +7,7 @@ const state = {
       id: null,
       name: null,
       slug: null,
-      user_id: null,
+      userId: null,
       city: null,
       previewDescription: null,
       previewImage: null,
@@ -25,7 +25,7 @@ const state = {
     id: null,
     name: null,
     slug: null,
-    user_id: null,
+    userId: null,
     city: null,
     previewDescription: null,
     previewImage: null,
@@ -135,7 +135,7 @@ const actions = {
             name: restaurant.name,
             slug: restaurant.slug,
             city: restaurant.city,
-            user_id: restaurant.user_id,
+            userId: restaurant.userId,
             previewDescription: restaurant.previewDescription,
             previewImage: restaurant.previewImage,
             backgroundImage: restaurant.backgroundImage,
@@ -225,7 +225,7 @@ const actions = {
 
   editRestaurantStaff({ commit }, payload) {
     return axios
-      .post(process.env.VUE_APP_API_URL + '/staff/restaurant', payload)
+      .patch(process.env.VUE_APP_API_URL + '/staff/restaurant', payload)
       .then(res => {
         if (res.data.responseType === 'success')
           this.dispatch('getRestaurantStaff')
@@ -251,7 +251,7 @@ const actions = {
 
   editRestaurant({ commit }, payload) {
     return axios
-      .post(
+      .patch(
         process.env.VUE_APP_API_URL + '/admin/restaurant/' + payload.id,
         payload.data
       )

@@ -35,20 +35,18 @@
 </template>
 
 <script>
-    export default {
-        computed: {
-            userRole() {
-                return this.$store.getters.role_id;
-            }
-        },
-        methods: {
-            onLogout() {
-                this.$store.dispatch('logout');
-            }
+export default {
+    computed: {
+        userRole() {
+            return this.$store.getters.roleId;
         }
-    };
+    },
+    methods: {
+        onLogout() {
+            this.$store.dispatch('logout');
+        }
+    }
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

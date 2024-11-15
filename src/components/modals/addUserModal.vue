@@ -45,9 +45,9 @@
                                     @input="$v.user.password.$touch()" @blur="$v.user.password.$touch()"
                                     @click:append="show = !show"></v-text-field>
                                 <v-flex xs12>
-                                    <v-select prepend-icon="security" :items=roles label="Role" v-model="user.role_id"
-                                        :error-messages="role_idErrors" required @change="$v.user.role_id.$touch()"
-                                        @blur="$v.user.role_id.$touch()"></v-select>
+                                    <v-select prepend-icon="security" :items=roles label="Role" v-model="user.roleId"
+                                        :error-messages="roleIdErrors" required @change="$v.user.roleId.$touch()"
+                                        @blur="$v.user.roleId.$touch()"></v-select>
                                 </v-flex>
                             </v-layout>
                         </v-container>
@@ -82,7 +82,7 @@ export default {
                 name: '',
                 email: '',
                 password: '',
-                role_id: ''
+                roleId: ''
             },
             addNotification: false,
             errorNotification: false,
@@ -94,7 +94,7 @@ export default {
             name: { required },
             email: { required, email },
             password: { required, minLength: minLength(6) },
-            role_id: { required }
+            roleId: { required }
         }
     },
     watch: {
@@ -103,7 +103,7 @@ export default {
             this.user.name = '';
             this.user.email = '';
             this.user.password = '';
-            this.user.role_id = null;
+            this.user.roleId = null;
         }
     },
     computed: {
@@ -127,10 +127,10 @@ export default {
             !this.$v.user.password.minLength && errors.push('Password must have at least 6 characters!');
             return errors;
         },
-        role_idErrors() {
+        roleIdErrors() {
             const errors = [];
-            if (!this.$v.user.role_id.$dirty) return errors;
-            !this.$v.user.role_id.required && errors.push('Role is required!');
+            if (!this.$v.user.roleId.$dirty) return errors;
+            !this.$v.user.roleId.required && errors.push('Role is required!');
             return errors;
         }
     },
