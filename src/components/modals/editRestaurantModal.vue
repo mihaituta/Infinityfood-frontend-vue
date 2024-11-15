@@ -86,7 +86,8 @@
                         v-else-if="restaurantList.previewImage" />
                     </template>
                     <img :src="previewImageURL" width="100%" v-if="previewImageURL" />
-                    <img :src="path + restaurantList.previewImage" width="100%" v-else-if="restaurantList.previewImage" />
+                    <img :src="path + restaurantList.previewImage" width="100%"
+                      v-else-if="restaurantList.previewImage" />
                   </v-tooltip>
                 </v-flex>
                 <v-flex class="text-xs-center text-sm-center text-md-center text-lg-center">
@@ -168,7 +169,7 @@
         <v-card-actions class="pb-2 pt-3">
           <v-spacer></v-spacer>
           <v-btn color="error" @click="openModal = false">Close</v-btn>
-          <v-btn color="primary" :disabled="!valid" @click.prevent="onSubmit">Update</v-btn>
+          <v-btn color="primary" :disabled="!valid || loading" @click.prevent="onSubmit">Update</v-btn>
         </v-card-actions>
 
       </v-card>
@@ -187,6 +188,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       valid: true,
       path: process.env.VUE_APP_RESTAURANT_IMAGES,
       previewImageURL: '',
@@ -412,6 +414,8 @@ export default {
       if (!this.$refs.form.validate()) {
         return;
       }
+      // Check if the form is already submitting to prevent multiple clicks
+      if (this.loading) return;
 
       if (this.restaurantList.name === this.restaurant.name &&
         this.restaurantList.userId === this.restaurant.userId &&
@@ -429,6 +433,9 @@ export default {
         this.openModal = false;
         return
       }
+
+      // Set loading to true when request begins
+      this.loading = true;
 
       const formData = new FormData();
 
@@ -459,7 +466,8 @@ export default {
         formData.append('mail2', this.restaurantList.mail2);
       if (this.restaurantList.aboutText !== this.restaurant.aboutText)
         formData.append('aboutText', this.restaurantList.aboutText);
-      formData.append('_method', 'PATCH');
+      //formData.append('_method', 'PATCH');
+
       this.$store.dispatch('editRestaurant', { data: formData, id: this.restaurantList.id }).then((res) => {
         console.log(res);
         if (res.responseType === 'success') {
@@ -468,6 +476,8 @@ export default {
         } else if (res.responseType === 'error' && res.errorMessage === 'nameTaken') {
           this.$parent.nameErrorNotification();
         }
+      }).finally(() => {
+        this.loading = false; // Reset loading after response
       });
     }
   },

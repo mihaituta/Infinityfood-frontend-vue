@@ -356,7 +356,6 @@ export default {
       !this.$v.restaurant.mail1.required && errors.push('E-mail is required!');
       return errors;
     },
-
     mailErrors2() {
       const errors = [];
       if (!this.$v.restaurant.mail2.$dirty) return errors;

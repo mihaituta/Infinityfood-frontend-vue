@@ -1,16 +1,8 @@
 <template>
   <div style="height: 100%">
-    <restaurant-header/>
-    <v-snackbar
-        v-model="addNotification"
-        :timeout="60000"
-        top
-        dark
-        multi-line
-        color="rgb(76, 175, 80, 0.9)"
-        style="font-size: 18px"
-        class="font-weight-light mt-4"
-    >
+    <restaurant-header />
+    <v-snackbar v-model="addNotification" :timeout="60000" top dark multi-line color="rgb(76, 175, 80, 0.9)"
+      style="font-size: 18px" class="font-weight-light mt-4">
       <div>The order has been placed successfully, it will be delivered in about 50 minutes.
         <br> Thank you for ordering from us. Good appetite!
       </div>
@@ -20,11 +12,10 @@
     </v-snackbar>
 
     <v-layout class="wrap" v-if="restaurant.backgroundImage"
-              :style="{ backgroundImage: 'url('+path+restaurant.backgroundImage+')'}">
+      :style="{ backgroundImage: 'url(' + path + restaurant.backgroundImage + ')' }">
       <v-container fill-height>
         <v-layout align-center justify-center>
-          <v-img v-if="restaurant.logoImage" class="mr-2" max-width="215px"
-                 :src="path+restaurant.logoImage"></v-img>
+          <v-img v-if="restaurant.logoImage" class="mr-2" max-width="215px" :src="path + restaurant.logoImage"></v-img>
           <div class="logodiv">{{ restaurant.name }}</div>
         </v-layout>
       </v-container>
@@ -41,7 +32,7 @@
       </v-layout>
     </v-container>
 
-<!--    <v-container v-if="menus.length" fluid class="pt-0 pb-2" style="width:85%">-->
+    <!--    <v-container v-if="menus.length" fluid class="pt-0 pb-2" style="width:85%">-->
     <v-container fluid class="pt-0 pb-2" style="width:85%">
       <v-divider></v-divider>
       <div class="mb-3 text-sm-center sTitle t2">
@@ -49,13 +40,7 @@
       </div>
       <v-layout>
         <v-flex xs9>
-          <v-tabs
-              grow
-              slider-color="black"
-              dark
-              color="primary"
-              class="mb-5"
-          >
+          <v-tabs grow slider-color="black" dark color="primary" class="mb-5">
             <v-tab v-for="type in types" :key="type.id">
               <v-icon style="text-shadow: 2px 2px black;" size="18" class="mr-2">{{ getIcon(type) }}
               </v-icon>
@@ -63,21 +48,15 @@
             </v-tab>
             <v-tab-item v-for="type in types" :key="type.id">
               <v-hover v-for="menu in menus" :key="menu.id" v-if="menu.type === type">
-                <v-card style="border-radius: 10px" slot-scope="{ hover }"
-                        :class="`elevation-${hover ? 10 : 3}`">
+                <v-card style="border-radius: 10px" slot-scope="{ hover }" :class="`elevation-${hover ? 10 : 3}`">
                   <v-container class="mb-2 mt-3 pa-0">
                     <v-layout>
                       <v-flex align-self-center xs2 class="ma-2">
                         <v-tooltip fixed right max-width="600px" color="white">
                           <template v-slot:activator="{ on }">
-                            <v-img :src="menuPath+menu.image"
-                                   aspect-ratio="1"
-                                   width="160"
-                                   contain
-                                   v-on="on"
-                            ></v-img>
+                            <v-img :src="menuPath + menu.image" aspect-ratio="1" width="160" contain v-on="on"></v-img>
                           </template>
-                          <img :src="menuPath+menu.image" width="100%" alt=""/>
+                          <img :src="menuPath + menu.image" width="100%" alt="" />
                         </v-tooltip>
                       </v-flex>
                       <v-flex xs8 class="mt-3 mb-3 ml-4">
@@ -88,8 +67,8 @@
                       <v-flex xs3 mr-2>
                         <v-layout align-center justify-end row fill-height>
                           <h2 class="mr-1" style="font-family: sans-serif;">{{
-                              menu.price.toLocaleString("ro-RO", {minimumFractionDigits: 2})
-                            }}
+                            menu.price.toLocaleString("ro-RO", { minimumFractionDigits: 2 })
+                          }}
                             ron</h2>
                           <v-btn small fab color="error" @click.stop="addItem(menu)">
                             <v-icon size="30">add</v-icon>
@@ -124,47 +103,21 @@
                           </v-flex>
 
                           <v-layout class="justify-space-between mt-3">
-                            <v-text-field
-                                prepend-inner-icon="place"
-                                v-model="address.address"
-                                label="Address (street, nr) *"
-                                outline
-                                :rules="addressRules"
-                                class="pr-3"
-                            ></v-text-field>
-                            <v-text-field
-                                prepend-inner-icon="place"
-                                v-model="address.houseNr"
-                                label="Flat/House Nr"
-                                outline
-                                class="pl-3"
-                            ></v-text-field>
+                            <v-text-field prepend-inner-icon="place" v-model="address.address"
+                              label="Address (street, nr) *" outline :rules="addressRules" class="pr-3"></v-text-field>
+                            <v-text-field prepend-inner-icon="place" v-model="address.houseNr" label="Flat/House Nr"
+                              outline class="pl-3"></v-text-field>
                           </v-layout>
 
                           <v-layout class="justify-space-between">
-                            <v-text-field
-                                prepend-inner-icon="place"
-                                v-model="address.floor"
-                                label="Floor"
-                                outline
-                                class="pr-3"
-                            ></v-text-field>
-                            <v-text-field
-                                prepend-inner-icon="place"
-                                v-model="address.apartment"
-                                label="Apartment"
-                                outline
-                                class="pl-3"
-                            ></v-text-field>
+                            <v-text-field prepend-inner-icon="place" v-model="address.floor" label="Floor" outline
+                              class="pr-3"></v-text-field>
+                            <v-text-field prepend-inner-icon="place" v-model="address.apartment" label="Apartment"
+                              outline class="pl-3"></v-text-field>
                           </v-layout>
-                          <v-textarea
-                              prepend-inner-icon="description"
-                              v-model="address.information"
-                              label="Additional info, preferences (if applicable)"
-                              outline
-                              rows="1"
-                              auto-grow
-                          ></v-textarea>
+                          <v-textarea prepend-inner-icon="description" v-model="address.information"
+                            label="Additional info, preferences (if applicable)" outline rows="1"
+                            auto-grow></v-textarea>
 
                           <v-flex xs12>
                             <v-divider></v-divider>
@@ -172,29 +125,16 @@
                           </v-flex>
 
                           <v-layout class="justify-space-between mt-3">
-                            <v-text-field
-                                prepend-inner-icon="person"
-                                v-model="address.name"
-                                label="Name *"
-                                :rules="nameRules"
-                                outline
-                                class="pr-3"
-                            ></v-text-field>
-                            <v-text-field
-                                prepend-inner-icon="phone_android"
-                                v-model="address.phone"
-                                :rules="phoneRules"
-                                label="Phone number *"
-                                outline
-                                class="pl-3"
-                            ></v-text-field>
+                            <v-text-field prepend-inner-icon="person" v-model="address.name" label="Name *"
+                              :rules="nameRules" outline class="pr-3"></v-text-field>
+                            <v-text-field prepend-inner-icon="phone_android" v-model="address.phone" :rules="phoneRules"
+                              label="Phone number *" outline class="pl-3"></v-text-field>
                           </v-layout>
                         </v-layout>
                       </v-container>
                     </v-card-text>
                     <v-card-actions class="mb-4 ml-4">
-                      <v-btn large class="pr-3 pl-3" style="font-size: 20px;" color="primary"
-                             @click.prevent="onSubmit">
+                      <v-btn large class="pr-3 pl-3" style="font-size: 20px;" color="primary" @click.prevent="onSubmit">
                         Confirm order
                       </v-btn>
                     </v-card-actions>
@@ -207,12 +147,7 @@
 
         <v-flex xs3 class="pl-3">
           <v-card class="orderCard" style="border-radius:4px;">
-            <v-toolbar
-                style="text-shadow: 2px 2px 2px black"
-                height="47px"
-                color="primary"
-                dark
-            >
+            <v-toolbar style="text-shadow: 2px 2px 2px black" height="47px" color="primary" dark>
               <v-toolbar-title>
                 <div style="font-size: 22px;">Order</div>
               </v-toolbar-title>
@@ -233,41 +168,22 @@
 
 
               <transition-group class="orderItems pt-3" name="item" tag="div">
-                <v-layout
-                    v-for="item in items"
-                    :key="item.id"
-                    column
-                    class="pr-0"
-                >
+                <v-layout v-for="item in items" :key="item.id" column class="pr-0">
                   <v-layout row>
                     <v-flex xs8 class="subheading">
                       {{ item.nr }}x {{ item.name }}
                     </v-flex>
 
                     <v-flex xs4 class="subheading text-sm-right pr-2">
-                      <b>{{ item.price.toLocaleString("ro-RO", {minimumFractionDigits: 2}) }} ron</b>
+                      <b>{{ item.price.toLocaleString("ro-RO", { minimumFractionDigits: 2 }) }} ron</b>
                     </v-flex>
                   </v-layout>
                   <v-layout row class="ma-0 pr-1">
                     <v-spacer></v-spacer>
-                    <v-btn
-                        icon
-                        style="height:25px;width:25px;"
-                        color="error"
-                        small
-                        fab
-                        @click="addMore(item)"
-                    >
+                    <v-btn icon style="height:25px;width:25px;" color="error" small fab @click="addMore(item)">
                       <v-icon>add</v-icon>
                     </v-btn>
-                    <v-btn
-                        icon
-                        style="height:25px;width:25px;"
-                        color="error"
-                        small
-                        fab
-                        @click="removeItem(item)"
-                    >
+                    <v-btn icon style="height:25px;width:25px;" color="error" small fab @click="removeItem(item)">
                       <v-icon>remove</v-icon>
                     </v-btn>
                   </v-layout>
@@ -278,21 +194,13 @@
               <v-layout class="mt-3">
                 <div class="title">TOTAL</div>
                 <v-spacer></v-spacer>
-                <div
-                    class="title pr-3"
-                    style="color: #cd0a00;">
-                  {{ totalPrice.toLocaleString("ro-RO", {minimumFractionDigits: 2}) }} ron
+                <div class="title pr-3" style="color: #cd0a00;">
+                  {{ totalPrice.toLocaleString("ro-RO", { minimumFractionDigits: 2 }) }} ron
                 </div>
               </v-layout>
 
               <v-card-actions class="justify-center mt-3">
-                <v-btn
-                    large
-                    class="pl-5 pr-5 mr-3"
-                    style="font-size: 20px;"
-                    color="primary"
-                    @click="order"
-                >
+                <v-btn large class="pl-5 pr-5 mr-3" style="font-size: 20px;" color="primary" @click="order">
                   Order now
                 </v-btn>
               </v-card-actions>
@@ -355,14 +263,14 @@ export default {
       easing: 'easeInOutCubic',
       easings: Object.keys(easings),
       icons:
-          {
-            'Starter': 'restaurant',
-            'Main Course': 'room_service',
-            'Fastfood': 'fastfood',
-            'Pizza': 'local_pizza',
-            'Dessert': 'cake',
-            'Drinks': 'local_bar',
-          },
+      {
+        'Starter': 'restaurant',
+        'Main Course': 'room_service',
+        'Fastfood': 'fastfood',
+        'Pizza': 'local_pizza',
+        'Dessert': 'cake',
+        'Drinks': 'local_bar',
+      },
       address: {
         name: null,
         phone: null,
@@ -411,7 +319,7 @@ export default {
       orderData.phone = this.address.phone;
       orderData.city = this.restaurant.city;
       orderData.address = this.address.address;
-      orderData.store_id = this.restaurant.id;
+      orderData.restaurantId = this.restaurant.id;
       orderData.totalPrice = this.totalPrice;
 
       if (this.address.houseNr !== '')
@@ -452,7 +360,7 @@ export default {
         item.nr++;
         this.totalPrice += item.price;
       } else {
-        this.items.push({id: menu.id, nr: 1, name: menu.name, price: menu.price});
+        this.items.push({ id: menu.id, nr: 1, name: menu.name, price: menu.price });
         this.totalPrice += menu.price;
         this.itemsLengthChanged = true;
       }
@@ -525,7 +433,7 @@ export default {
 
     this.$store.dispatch('getRestaurantComplete', this.$route.params.slug).then((res) => {
       if (res.responseType === 'error') {
-        this.$router.replace({name: 'error', params: {'0': '404'}});
+        this.$router.replace({ name: 'error', params: { '0': '404' } });
       }
     });
 
@@ -643,4 +551,3 @@ export default {
   opacity: 0;
 }
 </style>
-

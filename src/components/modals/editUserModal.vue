@@ -43,7 +43,8 @@
                         <v-card-actions class="pb-3">
                             <v-spacer></v-spacer>
                             <v-btn color="error" @click.stop="openModal = false">Close</v-btn>
-                            <v-btn color="primary" :disabled="!valid" @click.prevent="onSubmit">Update</v-btn>
+                            <v-btn color="primary" :disabled="!valid || loading"
+                                @click.prevent="onSubmit">Update</v-btn>
                         </v-card-actions>
                     </v-card-text>
                 </v-form>
@@ -63,6 +64,7 @@ export default {
     },
     data() {
         return {
+            loading: false,
             valid: true,
             show: false,
             roles: [{ text: 'Admin' }, { text: 'Staff' }],
@@ -121,9 +123,10 @@ export default {
             this.$v.$touch()
             if (this.$v.$pending || this.$v.$error) return
 
-            if (!this.$refs.form.validate()) {
-                return
-            }
+            if (!this.$refs.form.validate()) return
+
+            // Check if the form is already submitting to prevent multiple clicks
+            if (this.loading) return;
 
             const data = {}
             if (this.userList.name !== this.user.name) {
@@ -148,6 +151,9 @@ export default {
                 return;
             }
 
+            // Set loading to true when request begins
+            this.loading = true;
+
             // Send the updated data object to the store for dispatch
             this.$store
                 .dispatch('editUser', { data, id: this.userList.id })
@@ -166,7 +172,9 @@ export default {
                     ) {
                         this.$parent.emailErrorNotification()
                     }
-                })
+                }).finally(() => {
+                    this.loading = false; // Reset loading after response
+                });
         },
     },
 }

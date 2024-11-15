@@ -46,7 +46,7 @@ const state = {
       price: null,
       type: null,
       image: null,
-      store_id: null,
+      restaurantId: null,
     },
   ],
   menuTypes: [],
@@ -186,7 +186,7 @@ const actions = {
             price: menu.price,
             type: menu.type,
             image: menu.image,
-            store_id: menu.store_id,
+            restaurantId: menu.restaurantId,
           }
           menus.push(temp)
         })

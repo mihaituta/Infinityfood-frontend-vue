@@ -77,7 +77,7 @@
             <v-card-actions class="pb-3">
               <v-spacer></v-spacer>
               <v-btn color="error" @click="openModal = false">Close</v-btn>
-              <v-btn color="primary" :disabled="!valid" @click.prevent="onSubmit">Add</v-btn>
+              <v-btn color="primary" :disabled="!valid || loading" @click.prevent="onSubmit">Add</v-btn>
             </v-card-actions>
           </v-card-text>
         </v-form>
@@ -90,6 +90,7 @@
 export default {
   data() {
     return {
+      loading: false,
       valid: true,
       openModal: false,
       imageUrl: '',
@@ -175,16 +176,16 @@ export default {
       if (!this.menu.image)
         this.imageError = true;
 
-      if (!this.$refs.form.validate()) {
-        return;
-      }
+      if (!this.$refs.form.validate()) return;
+
+      if (this.loading) return;
+
+      this.loading = true;
 
       const formData = new FormData();
       const menuData = this.menu;
 
-      if (!menuData.image) {
-        return;
-      }
+      if (!menuData.image) return;
 
       formData.append('name', menuData.name);
       formData.append('description', menuData.description);
@@ -199,6 +200,8 @@ export default {
         } else if (res.responseType === 'error' && res.errorMessage === 'nameTaken') {
           this.nameErrorNotification();
         }
+      }).finally(() => {
+        this.loading = false;
       });
     }
   }

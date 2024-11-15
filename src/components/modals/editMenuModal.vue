@@ -1,11 +1,6 @@
 <template>
   <v-layout class="pa-0 ma-0" max-width="25%">
-    <v-dialog
-        v-model="openModal"
-        max-width="25%"
-        full-height
-        transition="scale-transition"
-    >
+    <v-dialog v-model="openModal" max-width="25%" full-height transition="scale-transition">
       <v-card>
         <v-card-title class="ma-0 pa-0 pb-4">
           <v-spacer></v-spacer>
@@ -25,70 +20,39 @@
             <v-container class="pt-3 pl-3 pr-3 pb-1">
               <v-layout column>
                 <v-flex xs12>
-                  <v-text-field
-                      prepend-icon="create"
-                      v-model="menuList.name"
-                      label="Name"
-                      :rules="nameRules"
-                  ></v-text-field>
+                  <v-text-field prepend-icon="create" v-model="menuList.name" label="Name"
+                    :rules="nameRules"></v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-textarea
-                      prepend-icon="description"
-                      v-model="menuList.description"
-                      label="Description"
-                      rows="1"
-                      auto-grow
-                      :rules="descriptionRules"
-                  ></v-textarea>
+                  <v-textarea prepend-icon="description" v-model="menuList.description" label="Description" rows="1"
+                    auto-grow :rules="descriptionRules"></v-textarea>
                 </v-flex>
                 <v-flex>
-                  <v-text-field
-                      prepend-icon="attach_money"
-                      v-model="menuList.price"
-                      type="number"
-                      label="Price"
-                      min="0"
-                      :rules="priceRules"
-                  ></v-text-field>
+                  <v-text-field prepend-icon="attach_money" v-model="menuList.price" type="number" label="Price" min="0"
+                    :rules="priceRules"></v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-select
-                      prepend-icon="restaurant_menu"
-                      :items=types
-                      label="Food type"
-                      v-model="menuList.type"
-                      :rules="typeRules"
-                  ></v-select>
+                  <v-select prepend-icon="restaurant_menu" :items=types label="Food type" v-model="menuList.type"
+                    :rules="typeRules"></v-select>
                 </v-flex>
-                <input
-                    type="file"
-                    style="display:none"
-                    ref="image"
-                    accept="image/*"
-                    @change="onFileChanged"
-                >
-                <v-flex xs12
-                        class="text-xs-center text-sm-center text-md-center text-lg-center mt-0">
+                <input type="file" style="display:none" ref="image" accept="image/*" @change="onFileChanged">
+                <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center mt-0">
                   <v-btn @click="pickFile" color="primary" class="ma-0">
                     Upload image
                     <v-icon right dark>cloud_upload</v-icon>
                   </v-btn>
-                  <div v-if="imageTooBig" style="color:red;"
-                       class="subheading font-weight-light mt-3">
+                  <div v-if="imageTooBig" style="color:red;" class="subheading font-weight-light mt-3">
                     Image is too big, resolution must be 1920x1080 or smaller.
                   </div>
                 </v-flex>
-                <v-flex xs12
-                        class="text-xs-center text-sm-center text-md-center text-lg-center mt-2">
+                <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center mt-2">
                   <v-tooltip top max-width="500px" color="white">
                     <template v-slot:activator="{ on }">
-                      <img :src="imageUrl" v-on="on" width="35%" v-if="imageUrl"/>
-                      <img :src="path+menuList.image" v-on="on" width="35%"
-                           v-else-if="menuList.image"/>
+                      <img :src="imageUrl" v-on="on" width="35%" v-if="imageUrl" />
+                      <img :src="path + menuList.image" v-on="on" width="35%" v-else-if="menuList.image" />
                     </template>
-                    <img :src="imageUrl" width="100%" v-if="imageUrl"/>
-                    <img :src="path+menuList.image" width="100%" v-else-if="menuList.image"/>
+                    <img :src="imageUrl" width="100%" v-if="imageUrl" />
+                    <img :src="path + menuList.image" width="100%" v-else-if="menuList.image" />
                   </v-tooltip>
                 </v-flex>
                 <v-flex class="text-xs-center text-sm-center text-md-center text-lg-center">
@@ -98,8 +62,8 @@
             </v-container>
             <v-card-actions class="pb-3">
               <v-spacer></v-spacer>
-              <v-btn color="error" @click.stop="openModal=false">Close</v-btn>
-              <v-btn color="primary" :disabled="!valid" @click.prevent="onSubmit">Update</v-btn>
+              <v-btn color="error" @click.stop="openModal = false">Close</v-btn>
+              <v-btn color="primary" :disabled="!valid || loading" @click.prevent="onSubmit">Update</v-btn>
             </v-card-actions>
           </v-card-text>
         </v-form>
@@ -116,6 +80,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       valid: true,
       imageUrl: '',
       path: process.env.VUE_APP_MENU_IMAGES,
@@ -124,12 +89,12 @@ export default {
       types: ['Starter', 'Main Course', 'Fastfood', 'Pizza', 'Dessert', 'Drinks'],
       menu: {},
       menuList: [
-        {id: ''},
-        {menu: ''},
-        {description: ''},
-        {price: ''},
-        {type: ''},
-        {image: ''},
+        { id: '' },
+        { menu: '' },
+        { description: '' },
+        { price: '' },
+        { type: '' },
+        { image: '' },
       ],
       nameRules: [
         v => !!v || 'Name is required!',
@@ -155,7 +120,7 @@ export default {
     this.menuList.price = this.menu.price;
     this.menuList.type = this.menu.type;
     this.menuList.image = this.menu.image;
-    this.menuList.store_id = this.menu.store_id;
+    this.menuList.restaurantId = this.menu.restaurantId;
   },
   watch: {
     openModal() {
@@ -204,9 +169,10 @@ export default {
     },
 
     onSubmit() {
-      if (!this.$refs.form.validate()) {
-        return;
-      }
+      if (!this.$refs.form.validate()) return;
+      if (this.loading) return;
+
+      this.loading = true;
 
       const formData = new FormData();
       let data = {
@@ -219,10 +185,10 @@ export default {
       };
 
       if (this.menuList.name === this.menu.name &&
-          this.menuList.description === this.menu.description &&
-          this.menuList.price === this.menu.price &&
-          this.menuList.type === this.menu.type &&
-          this.menuList.image === this.menu.image) {
+        this.menuList.description === this.menu.description &&
+        this.menuList.price === this.menu.price &&
+        this.menuList.type === this.menu.type &&
+        this.menuList.image === this.menu.image) {
         this.openModal = false;
         return;
       }
@@ -240,19 +206,19 @@ export default {
         formData.append('type', data.type);
       formData.append('_method', 'patch');
 
-      this.$store.dispatch('editMenu', {data: formData, id: data.id}).then((res) => {
+      this.$store.dispatch('editMenu', { data: formData, id: data.id }).then((res) => {
         if (res.responseType === 'success') {
           this.$parent.addUpdateNotification();
           this.openModal = false;
         } else if (res.responseType === 'error' && res.errorMessage === 'nameTaken') {
           this.$parent.nameErrorNotification();
         }
+      }).finally(() => {
+        this.loading = false;
       });
     }
   }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
