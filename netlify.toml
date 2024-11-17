@@ -1,5 +1,10 @@
 # SPA router support.
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+from = "/*"
+to = "/index.html"
+status = 200
+
+[[headers]]
+for = "/*"
+[headers.values]
+access-control-allow-origin = "*"
