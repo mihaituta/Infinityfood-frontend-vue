@@ -11,6 +11,5 @@ module.exports = {
         changeOrigin: true, // Adjusts the origin to match the target URL
         secure: false,
       },*/
-    },
   },
 }
