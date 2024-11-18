@@ -4,11 +4,11 @@
 
 # Infinity Food
 
-**InfinityFood** is a resturant management system.
+**InfinityFood** is a restaurant management system.
 
 This is the **front-end** part of the project.
 <br>
-<a href="https://github.com/mihaituta/laravel-vue-api-food" rel="noreferrer" target="_blank">API github link (Java Spring Boot)</a>
+<a href="https://github.com/mihaituta/infinityfood-api-springboot" rel="noreferrer" target="_blank">API github link (Java Spring Boot)</a>
 
 <a href="https://infinityfood.netlify.app" rel="noreferrer" target="_blank">Live demo</a>
 
